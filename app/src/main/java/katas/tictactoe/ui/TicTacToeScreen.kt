@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import katas.tictactoe.Symbols
 import katas.tictactoe.TicTacToeState
@@ -86,6 +87,7 @@ fun Board(
     ) {
         items(board.size) { index ->
             Cell(
+                index = index,
                 symbol = board[index],
                 onClick = { onCellClick(index) }
             )
@@ -95,12 +97,14 @@ fun Board(
 
 @Composable
 fun Cell(
+    index: Int,
     symbol: Symbols?,
     onClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .aspectRatio(1f)
+            .testTag("cell_$index")
             .border(1.dp, Color.Black)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
