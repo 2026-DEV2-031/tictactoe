@@ -45,4 +45,35 @@ class TicTacToeInstrumentedTest {
             .onNodeWithText("Player X wins!")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun play_a_draw() {
+        composeRule.setContent {
+            MaterialTheme {
+                TicTacToeHost()
+            }
+        }
+
+        val moves = listOf(
+            0 to Symbols.X, 1 to Symbols.X, 2 to Symbols.O,
+            3 to Symbols.O, 4 to Symbols.O, 5 to Symbols.X,
+            6 to Symbols.X, 7 to Symbols.X, 8 to Symbols.O)
+
+        playMove(0) // X -> 0
+        playMove(2) // O -> 2
+        playMove(1) // X -> 1
+
+        playMove(3) // O -> 3
+        playMove(5) // X -> 5
+        playMove(4) // O -> 4
+
+        playMove(6) // X -> 6
+        playMove(8) // O -> 8
+        playMove(7) // X -> 7
+
+        // Assert draw text
+        composeRule
+            .onNodeWithText("It's a draw")
+            .assertIsDisplayed()
+    }
 }
